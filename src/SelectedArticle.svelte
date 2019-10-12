@@ -16,10 +16,13 @@ function incrementCount(i){
 }
 
 function removeElement(name,i){
-
-	console.log('click ',name)
-	console.log(orderList)
-	let found = orderList.find(function(element){
+  if(orderList[i].count > 1){
+	  	orderList[i].count --;
+  }else{
+    orderList.splice(i,1)
+  }
+/*
+let found = orderList.find(function(element){
 			return element.name === name;
 		});
 	console.log(found)	
@@ -30,6 +33,7 @@ function removeElement(name,i){
 	}else{
       	orderList.splice(i,1)
 	}
+	*/
 	testList.set(orderList)
 }
 function getAddText(e){
@@ -37,12 +41,16 @@ function getAddText(e){
   console.log(e.detail.text);
   addText = e.detail.text;
   orderList[selected].addText = addText;
+  orderList[selected].edit = true;
+
   console.log(orderList[selected]) 
 
 }
 function changePrice(e){
 	let newPrice = e.detail.price;
 	orderList[selected].price = newPrice;
+	orderList[selected].edit = true;
+
 }
 function openModal(value){
 	showModal = true;

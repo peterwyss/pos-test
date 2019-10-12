@@ -8,7 +8,7 @@
 	
 	let displayText = "";
 	let articlePrice = 0;
-	let found = 0;
+	let found = [];
  	onMount(async () => {
 		const res = await fetch(`http://192.168.178.32:3001`);
 		articleList = await res.json();
@@ -25,17 +25,34 @@
 		articlePrice = pr;
 		console.log("click ",name)
 		const list = $testList;
+
         found = list.find(function(element){
 			return element.name == name;
 		});
-		console.log(found)
-		if(found == undefined || found.addText != ""){
-		  list.push({"name": name, "price":articlePrice,"count": 1,"addText": ""});
-		}else {
-		  found.count +=  1;	
-		}
-		testList.set(list);
+		
+		if(found == undefined){
+		  list.push({"name": name, "price":articlePrice,"count": 1,"addText": "","edit":false});
+		  console.log(list)
+		}else if(found.edit == false){
+			console.log(list)
+			found.count ++;
+		}else{
+          found = list.find(function(element){
+		  	return element.name == name && element.edit == false;
+		  });			
+		  if(found == undefined){
+			  	list.push({"name": name, "price":articlePrice,"count": 1,"addText": "","edit":false});
 
+		  }else{
+			  found.count ++;
+		  }
+		}
+
+		
+
+        		
+		testList.set(list);
+     
     }
 </script>
 
