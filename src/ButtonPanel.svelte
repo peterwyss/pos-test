@@ -10,7 +10,7 @@
 	let articlePrice = 0;
 	let found = 0;
  	onMount(async () => {
-		const res = await fetch(`http://192.168.178.32:3000`);
+		const res = await fetch(`http://192.168.178.32:3001`);
 		articleList = await res.json();
 
 		if(articleList.code){
@@ -26,10 +26,10 @@
 		console.log("click ",name)
 		const list = $testList;
         found = list.find(function(element){
-			return element.name === name;
+			return element.name == name;
 		});
 		console.log(found)
-		if(found === undefined || found.addText != ""){
+		if(found == undefined || found.addText != ""){
 		  list.push({"name": name, "price":articlePrice,"count": 1,"addText": ""});
 		}else {
 		  found.count +=  1;	

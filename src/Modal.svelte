@@ -4,9 +4,13 @@
 
 	const dispatch = createEventDispatcher();
 	
-	function handleChange(e){
+	function handleChangeText(e){
 		console.log("handleChange")
-		dispatch("changeInput",{text: e.target.value});
+		dispatch("changeInputText",{text: e.target.value});
+	}
+    function handleChangePrice(e){
+		console.log("handleChange")
+		dispatch("changeInputPrice",{price: e.target.value});
 	}
     
 </script>
@@ -44,8 +48,9 @@
 <div class='modal'>
 	<slot name='header'></slot>
 	<hr>
-	<input  placeholder="Add text" on:input={handleChange} autofocus />
-
+	<input  placeholder="Add text" on:input={handleChangeText} autofocus />
+	<input  placeholder="Change Price" on:input={handleChangePrice}  />
+    
 	<slot></slot>
 	<hr>
 
