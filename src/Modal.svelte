@@ -2,7 +2,12 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
 
-    const dispatch = createEventDispatcher();
+	const dispatch = createEventDispatcher();
+	
+	function handleChange(e){
+		console.log("handleChange")
+		dispatch("changeInput",{text: e.target.value});
+	}
     
 </script>
 <style>
@@ -39,6 +44,8 @@
 <div class='modal'>
 	<slot name='header'></slot>
 	<hr>
+	<input  placeholder="Add text" on:input={handleChange} autofocus />
+
 	<slot></slot>
 	<hr>
 

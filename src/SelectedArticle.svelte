@@ -10,7 +10,10 @@
 	  orderList = value;
   });
  
+function incrementCount(i){
+	orderList[i].count +=1;
 
+}
 
 function removeElement(name,i){
 
@@ -29,9 +32,12 @@ function removeElement(name,i){
 	}
 	testList.set(orderList)
 }
-function handleChange(e){
+function getAddText(e){
 
-  console.log(orderList[selected]);
+  console.log(e.detail.text);
+  addText = e.detail.text;
+  orderList[selected].addText = addText;
+  console.log(orderList[selected]) 
 
 }
 
@@ -46,14 +52,21 @@ select {
 </style>
 
 {#if showModal}
-   <Modal on:close="{() => showModal = false}">
+   <Modal on:close={() => showModal = false} on:changeInput={getAddText}>
    Edit
-   <input bind:value={addText} placeholder="Add text" on:change={handleChange}/>
    </Modal>
 {/if}
 <p>{addText}</p>
 <div size="10">
  {#each orderList as item,i }
-     <div value={i}>{item.count} {item.name} .... {item.price} <button on:click={() => showModal = true, selected = i} >Edit</button>  <button on:click={() => removeElement(item.name,i)} >Delete</button></div>
+    <div value={i}>
+	 {item.count} {item.name} .... {item.count * item.price} 
+	 <button on:click={() => showModal = true, selected = i} >Edit</button> 
+	 <button on:click={() => removeElement(item.name,i)} >-</button>
+     <button on:click={() => incrementCount(i) }>+</button>
+	</div>
+	{#if addText != ""}
+	<div>{item.addText}</div>
+	{/if}
  {/each}
 </div>

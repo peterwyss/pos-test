@@ -29,9 +29,9 @@
 			return element.name === name;
 		});
 		console.log(found)
-		if(found === undefined){
+		if(found === undefined || found.addText != ""){
 		  list.push({"name": name, "price":articlePrice,"count": 1,"addText": ""});
-		}else{
+		}else {
 		  found.count +=  1;	
 		}
 		testList.set(list);
