@@ -21,19 +21,8 @@ function removeElement(name,i){
   }else{
     orderList.splice(i,1)
   }
-/*
-let found = orderList.find(function(element){
-			return element.name === name;
-		});
-	console.log(found)	
-	if(found.count > 1){
-		console.log('grösser als 1')
-		found.count -= 1;
-		console.log(found)
-	}else{
-      	orderList.splice(i,1)
-	}
-	*/
+
+
 	testList.set(orderList)
 }
 function getAddText(e){
@@ -66,11 +55,11 @@ select {
 		width: 14em;
 	}
 
-#orderList div:nth-child(even) {
+#orderList:nth-first-child(even) {
   background-color: #cecbc2;
 }
 
-#orderList div:nth-child(odd) {
+#orderList:nth-first-child(odd) {
   background-color: #bdd4f3;
 }
 </style>
@@ -91,7 +80,10 @@ select {
 	
 	{#if item.addText !== ""}
 	<div id="addText">{item.addText}</div>
-	{/if}
 	</div>
+	{:else}
+	 </div>
+	{/if}
+	
  {/each}
 </div>

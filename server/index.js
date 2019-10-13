@@ -22,8 +22,8 @@ function getData(callback){
             return;
         }
       console.log('connected as id ' + connection.threadId);
-
-     connection.query('SELECT *from products',function(error,results,fields){
+      let query = "SELECT articleButtons.label as name, products.price from articleButtons,products where articleButtons.link = products.id";
+     connection.query(query,function(error,results,fields){
         console.log("Result: ",results);
         callback(results);
      })
