@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 12. Okt 2019 um 19:14
+-- Erstellungszeit: 13. Okt 2019 um 09:52
 -- Server Version: 5.5.62-0+deb8u1-log
 -- PHP-Version: 5.6.40-0+deb8u1
 
@@ -19,6 +19,28 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `pwcPos`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `articleButtons`
+--
+
+CREATE TABLE IF NOT EXISTS `articleButtons` (
+  `id` int(11) NOT NULL,
+  `label` varchar(200) NOT NULL,
+  `category` varchar(200) NOT NULL,
+  `link` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Daten für Tabelle `articleButtons`
+--
+
+INSERT INTO `articleButtons` (`id`, `label`, `category`, `link`) VALUES
+(1, 'Burger', 'food', 1),
+(2, 'Pasta', 'food', 0),
+(3, 'Burger', 'food', 1);
 
 -- --------------------------------------------------------
 
@@ -70,6 +92,12 @@ INSERT INTO `products` (`id`, `name`, `label`, `price`) VALUES
 --
 -- Indizes der exportierten Tabellen
 --
+
+--
+-- Indizes für die Tabelle `articleButtons`
+--
+ALTER TABLE `articleButtons`
+ ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indizes für die Tabelle `invoice`
