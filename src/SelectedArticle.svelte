@@ -1,12 +1,12 @@
 <script>
-  import {testList} from './stores';
+  import {buttonList} from './stores';
   import Modal from './Modal.svelte';
 
   let addText = "";
   let showModal = false;
   let orderList = [];
   let selected = 0; 
-  testList.subscribe(value => {
+  buttonList.subscribe(value => {
 	  orderList = value;
   });
  
@@ -23,7 +23,7 @@ function removeElement(name,i){
   }
 
 
-	testList.set(orderList)
+	buttonList.set(orderList)
 }
 function getAddText(e){
 

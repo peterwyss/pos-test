@@ -1,44 +1,29 @@
 var app = require('express')();
 var cors = require('cors');
 var mysql  = require('mysql');
-
+var pool = require('./database');
 app.use(cors());
-var pool = mysql.createPool({
-    connectionLimit: 10,
-    host     : 'localhost',
-    user     : 'pos',
-    password : 'pos',
-    database: "pwcPos"
-  });
 
-//var result = [];
 var list = [];
 
-function getData(callback){
-    pool.getConnection(function(err,connection){
-        if(err){
-            callback(err);
-          
-            return;
-        }
-      console.log('connected as id ' + connection.threadId);
-      let query = "SELECT articleButtons.label as name, products.price from articleButtons,products where articleButtons.link = products.id";
-     connection.query(query,function(error,results,fields){
-        console.log("Result: ",results);
-        callback(results);
-     })
- 
-    connection.release();
-  });
-} 
+
+
 app.get("/",function(req,res){
-     
-   getData(cb);
-   function cb(data){
-     console.log("Data:",data)
-     res.send(data);
-   }
-  });
+      let query = "SELECT articleButtons.label as name, products.price from articleButtons,products where articleButtons.link = products.id";
+      pool.query(query, function (error, results, fields) {
+       if (error) throw error;
+       res.end(JSON.stringify(results));
+      });
+    });  
+ 
+    app.get("/getArticle",function(req,res){
+      let query = "SELECT * from products";
+      pool.query(query, function (error, results, fields) {
+       if (error) throw error;
+       console.log(results)
+       res.end(JSON.stringify(results));
+      });
+    });  
 
 
 app.listen(3001, function(){
