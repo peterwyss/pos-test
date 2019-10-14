@@ -48,7 +48,7 @@
 <div class='modal'>
 	<slot name='header'></slot>
 	<hr>
-	<input  placeholder="Add text" on:input={handleChangeText} autofocus />
+	<input  placeholder="Add text" on:input={handleChangeText} />
 	<input  placeholder="Change Price" on:input={handleChangePrice}  />
     
 	<slot></slot>

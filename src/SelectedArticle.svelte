@@ -77,12 +77,12 @@ select {
 	 <button on:click={() => openModal(i)} >Edit</button> 
 	 <button on:click={() => removeElement(item.name,i)} >-</button>
      <button on:click={() => incrementCount(i) }>+</button>
-	
+	</div>
 	{#if item.addText !== ""}
 	<div id="addText">{item.addText}</div>
-	</div>
-	{:else}
-	 </div>
+
+
+
 	{/if}
 	
  {/each}
