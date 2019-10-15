@@ -1,6 +1,8 @@
 <script>
 import {onMount} from 'svelte';
+import {buttonList} from '../stores.js';
 import {articleList} from '../stores.js';
+
 import axios from 'axios';
 import qs from 'qs';
 import { fade, fly } from 'svelte/transition';
@@ -8,10 +10,14 @@ import { fade, fly } from 'svelte/transition';
 
 let allArticles = [];
 var data = {"label": "","category": "","link":"" };
+let btnList = [];
 var statusText = "";
 let feedbackBtn = "";
 let feedbackArt = "";
 
+buttonList.subscribe(value => {
+	  btnList = value;
+  });
 onMount(async () => {
 	const res = await fetch(`http://192.168.178.32:3001/getArticle`);
     allArticles = await res.json();
@@ -41,6 +47,7 @@ async function saveButton(qdata){
   feedbackBtn = data.label;
   data.label = "";
   data.category = "";
+   
 }
 function handleChange(){
   statusText = "";
@@ -63,3 +70,9 @@ function handleChange(){
 {/each}
 </select>
 <button on:click={() => saveButton(data)}>Save</button>
+<select name="link" bind:value={data.link} on:change={handleChange} >
+
+{#each btnList as button}
+  <option value={button.name}>{button.name} {button.label}</option>
+{/each}
+</select>

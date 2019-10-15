@@ -3,31 +3,30 @@
 
 	import Button from './Button.svelte';
     import Display from './Display.svelte';
-	import {buttonList} from './stores.js';
+	import {buttonList} from './stores.js'
+	import {orderList} from './stores.js'
 	import {articleListSt} from './stores.js';
-	
-
-	export var articleList = [];
-	
+		
 	let displayText = "";
 	let articlePrice = 0;
 	let found = [];
  	onMount(async () => {
 		const res = await fetch(`http://192.168.178.32:3001`);
-		articleList = await res.json();
-        articleListSt.set(articleList); 
-		if(articleList.code){
-		  await	alert(articleList.code);
+		let btnList = await res.json();
+        //articleListSt.set(articleList);
+		// ist ja nich wirklich die Lösung um Fehler auszugeben 
+		if(buttonList.code){
+		  await	alert(buttonList.code);
 
 		}
-
+       buttonList.set(btnList)
 	});
 
     function handleClick(name,pr){
 		displayText = name;
 		articlePrice = pr;
 		console.log("click ",name)
-		const list = $buttonList;
+		const list = $orderList;
 
         found = list.find(function(element){
 			return element.name == name;
@@ -35,9 +34,7 @@
 		
 		if(found == undefined){
 		  list.push({"name": name, "price":articlePrice,"count": 1,"addText": "","edit":false});
-		  console.log(list)
 		}else if(found.edit == false){
-			console.log(list)
 			found.count ++;
 		}else{
           found = list.find(function(element){
@@ -54,7 +51,8 @@
 		
 
         		
-		buttonList.set(list);
+		orderList.set(list);
+		console.log("OrderList: ",$orderList);
      
     }
 </script>
@@ -66,7 +64,7 @@
 </style>
 
 <Display text = {displayText} price={articlePrice} />
-{#each articleList as item}
+{#each $buttonList as item}
 	<Button func={() => handleClick(item.name,item.price)} name={item.label} />
 {/each}
 
