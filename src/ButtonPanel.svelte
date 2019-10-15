@@ -17,7 +17,7 @@
 		articleList = await res.json();
         articleListSt.set(articleList); 
 		if(articleList.code){
-					await	alert(articleList.code);
+		  await	alert(articleList.code);
 
 		}
 
@@ -67,6 +67,6 @@
 
 <Display text = {displayText} price={articlePrice} />
 {#each articleList as item}
-	<Button func={() => handleClick(item.name,item.price)} name={item.name} />
+	<Button func={() => handleClick(item.name,item.price)} name={item.label} />
 {/each}
 
